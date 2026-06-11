@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+* {
+  -webkit-user-drag: none;
+  user-drag: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@theme {
+  --color-white-yellow: #fffcf8;
+  --color-white-item: #efefef;
+  --color-white: #ffffff;
+  --color-terracota: #cc4e00;
+  --color-red-light: #eb3223;
+  --color-red: #f10707;
+  --color-peach: #ffc099;
+  --color-orange: #ff8133;
+  --color-yellow-light: #fff9e3;
+  --color-gray-light: #d9d9d9;
+  --color-gray: #b5b5b5;
+  --color-orange-dark: #ff6200;
+  --color-brown-dark: #662700;
+  --color-yellow-cream: #fff1ba;
+  --color-default: #ffab77;
+  --color-black: #000000;
+}
+
+@layer base {
+  input:-webkit-autofill {
+    -webkit-text-fill-color: #ff8133 !important;
+
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  }
+
+  /* Garante que o estado de focus também respeite a cor */
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #1f2937 !important;
+  }
+}
+
+.ajuste-desfoque {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+}

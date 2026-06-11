@@ -1,0 +1,127 @@
+import { useState, useRef } from "react";
+
+function DefaultTextField(props) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const inputRef = useRef(null);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleIconClick = () => {
+    if (props.onClickIcon) {
+      props.onClickIcon();
+    } else if (props.isPassword) {
+      togglePasswordVisibility();
+    } else if (props.type === "date" && inputRef.current) {
+      if (isCalendarOpen) {
+        inputRef.current.blur();
+        setIsCalendarOpen(false);
+      } else {
+        try {
+          inputRef.current.showPicker();
+          setIsCalendarOpen(true);
+        } catch (error) {
+          inputRef.current.focus();
+          setIsCalendarOpen(true);
+        }
+      }
+    }
+  };
+
+  const handleBlur = (e) => {
+    if (props.type === "date") {
+      setIsCalendarOpen(false);
+      if (props.min && e.target.value && e.target.value < props.min) {
+        const parts = e.target.value.split("-");
+        const minYear = props.min.split("-")[0];
+
+        if (parts[0] < minYear) {
+          e.target.value = `${minYear}-${parts[1] || "01"}-${parts[2] || "01"}`;
+          if (props.onChange) props.onChange(e);
+        }
+      }
+    }
+    if (props.onBlur) props.onBlur(e);
+  };
+
+  const hideDefaultCalendarIcon =
+    props.type === "date"
+      ? "[&::-webkit-calendar-picker-indicator]:hidden"
+      : "";
+
+  const isProfile = props.variant === "profile";
+
+  const defaultBorderColor = props.hasError
+    ? "border-red-500"
+    : "border-orange";
+  const defaultTextColor = props.hasError ? "text-red-500" : "text-orange";
+
+  const backgroundColor = props.readOnly ? "bg-gray-100" : "bg-white";
+
+  const wrapperBaseClasses = `flex flex-row w-full justify-between items-center ${backgroundColor} transition-colors duration-300`;
+
+  /* --- ALTERAÇÕES AQUI: Altura reduzida (h-10 / sm:h-12) e padding reduzido (px-3 / sm:px-4) --- */
+  const wrapperDefaultClasses = `px-3 sm:px-4 h-10 sm:h-12 rounded-full border ${defaultBorderColor}`;
+
+  const wrapperProfileClasses =
+    "px-4 py-3 rounded-lg shadow-sm border border-transparent";
+
+  const wrapperClasses = `${wrapperBaseClasses} ${isProfile ? wrapperProfileClasses : wrapperDefaultClasses} ${props.grid || ""}`;
+
+  const inputBaseClasses =
+    "flex-1 min-w-0 h-full border-none focus:outline-none focus:ring-0 bg-transparent";
+
+  /* --- ALTERAÇÕES AQUI: Fonte reduzida (text-sm / sm:text-base) --- */
+  const inputDefaultClasses = `text-sm sm:text-base placeholder:text-sm ${defaultTextColor}`;
+
+  const inputProfileClasses = props.readOnly
+    ? "text-lg text-gray-400 font-medium placeholder:text-gray-400 cursor-not-allowed"
+    : "text-lg text-[#4a2511] font-bold placeholder:text-[#4a2511] placeholder:font-bold";
+
+  const inputClasses = `${inputBaseClasses} ${hideDefaultCalendarIcon} ${isProfile ? inputProfileClasses : inputDefaultClasses}`;
+
+  const iconBaseClasses =
+    "object-contain cursor-pointer transition-all duration-300 shrink-0";
+
+  /* --- ALTERAÇÕES AQUI: Tamanho do ícone reduzido (w-5 h-5 / sm:w-6 sm:h-6) --- */
+  const iconDefaultClasses = "w-5 h-5 sm:w-6 sm:h-6";
+  const iconProfileClasses = "w-8 h-8 opacity-90";
+
+  const iconClasses = `${iconBaseClasses} ${isProfile ? iconProfileClasses : iconDefaultClasses}`;
+
+  return (
+    <div className={wrapperClasses}>
+      <input
+        ref={inputRef}
+        id={props.id}
+        onKeyDown={props.onKeyDown}
+        type={props.isPassword && showPassword ? "text" : props.type}
+        className={inputClasses}
+        placeholder={props.placeholder}
+        onChange={props.onChange}
+        onBlur={handleBlur}
+        maxLength={props.maxLength}
+        value={props.value || ""}
+        max={props.max}
+        min={props.min}
+        readOnly={props.readOnly}
+      />
+
+      {props.src && (
+        <img
+          onMouseDown={(e) => {
+            if (props.type === "date") e.preventDefault();
+          }}
+          className={iconClasses}
+          src={props.src}
+          alt={props.alt || "icon"}
+          onClick={handleIconClick}
+        />
+      )}
+    </div>
+  );
+}
+
+export default DefaultTextField;
