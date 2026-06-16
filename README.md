@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./src/assets/logo_family_sync.svg" alt="Logo FamilySync" width="150" />
+  <img src="./src/assets/logo_family_sync.svg" alt="Logo FamilySync" width="200" />
   
   # FamilySync - Interface Web (Frontend)
 </div>
@@ -54,17 +54,26 @@ Antes de começar, precisarás de ter o [Node.js](https://nodejs.org/) instalado
 
 ## 📂 Estrutura de Pastas (Frontend)
 
-Uma visão geral de como o código da interface está organizado:
+Uma visão geral de como o código da aplicação está organizado:
 
 ```text
-├── 📂 src
-│   ├── 📂 assets        # Imagens e ícones (ex: logo_family_sync.svg)
-│   ├── 📂 components    # Componentes reutilizáveis da interface
-│   ├── 📂 pages         # Ecrãs / Telas completas da aplicação
-│   ├── 📂 services      # Integração com a API / Backend
-│   └── 📂 styles        # Ficheiros de estilo globais
-├── 📄 package.json      # Dependências do projeto
-└── 📄 README.md         # Documentação do frontend
+├── 📂 public            # Arquivos públicos estáticos
+├── 📂 src               # Código-fonte principal da aplicação
+│   ├── 📂 assets        # Imagens e ficheiros estáticos (ex: logo_family_sync.svg)
+│   ├── 📂 components    # Componentes modulares (divididos por features, ui, forms, etc.)
+│   ├── 📂 context       # Contextos globais da aplicação (React Context)
+│   ├── 📂 hooks         # Custom hooks do React (ex: useAuth, useList, etc.)
+│   ├── 📂 layouts       # Estruturas de layout de página (ex: MainLayout)
+│   ├── 📂 screens       # Ecrãs principais da aplicação (ex: LoginScreen, CalendarScreen)
+│   ├── 📂 services      # Integração com a API e serviços externos
+│   ├── 📂 utils         # Funções utilitárias de apoio
+│   ├── 📄 App.jsx       # Componente raiz da aplicação
+│   ├── 📄 main.jsx      # Ponto de entrada do React
+│   └── 📄 routes.jsx    # Configuração de rotas da aplicação
+├── 📄 index.html        # HTML principal
+├── 📄 package.json      # Dependências e scripts do projeto
+├── 📄 tailwind.config.js# Configuração de estilos do Tailwind CSS
+└── 📄 vite.config.js    # Configuração do bundler Vite
 ```
 
 ---
