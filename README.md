@@ -1,4 +1,4 @@
-![Logo](./docs/img/logo_family_sync-Photoroom%204.png)
+![Logo](./src/assets/logo_family_sync.svg)
 
 
 # FamilySync - Repositório Oficial
