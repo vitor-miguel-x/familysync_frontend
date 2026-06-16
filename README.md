@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./src/assets/logo_family_sync.svg" alt="Logo FamilySync" width="200" />
+  <img src="./src/assets/logo_family_sync.svg" alt="Logo FamilySync" width="250" />
   
   # FamilySync - Interface Web (Frontend)
 </div>
